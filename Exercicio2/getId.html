@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViaCep</title>
+    <script>
+        function imprime(objeto) {
+            var mensagem = `
+            <br>
+            {
+                <br>
+                "<span class='campo'>cep</span>": ${objeto.cep},
+                <br>
+                "<span class='campo'>logradouro</span>": ${objeto.logradouro},
+                <br>
+                "<span class='campo'>complemento</span>": ${objeto.complemento},
+                <br>
+                "<span class='campo'>localidade</span>": ${objeto.localidade},
+                <br>
+                "<span class='campo'>uf</span>": ${objeto.uf},
+                <br>
+                "<span class='campo'>ibge</span>": ${objeto.ibge},
+                <br>
+                "<span class='campo'>gia</span>": ${objeto.gia},
+                <br>
+                "<span class='campo'>ddd</span>": ${objeto.ddd},
+                <br>
+                "<span class='campo'>siafi</span>": ${objeto.siafi}
+                <br>
+            }
+        <br>`
+            return mensagem;
+        }
+        async function getPostagem(id) {
+            await fetch(`https://viacep.com.br/ws/${id}/json/`)
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json);
+                    respjson.innerHTML = imprime(json);
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <main>
+        <h1>Busque pelo cep</h1>
+        <input id="numero" type="number" min="1" max="100" value="">
+        <button onclick="getPostagem(numero.value)">Buscar</button>
+
+        <div id="resp">
+            <p class="campo">Resposta:</p>
+            <p id="respjson"></p>
+        </div>
+    </main>
+</body>
+
+</html>

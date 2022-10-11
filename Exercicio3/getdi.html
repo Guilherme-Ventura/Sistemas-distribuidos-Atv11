@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DummyJSON</title>
+    <script>
+        function imprime(objeto) {
+            var mensagem = `
+            <br>
+                {
+                    <br>
+                    "<span class='campo'>id</span>": ${objeto.id},
+                    <br>
+                    "<span class='campo'>title</span>": ${objeto.title},
+                    <br>
+                    "<span class='campo'>description</span>": ${objeto.description},
+                    <br>
+                    "<span class='campo'>price</span>": ${objeto.price},
+                    <br>
+                    "<span class='campo'>discountPercentage</span>": ${objeto.discountPercentage},
+                    <br>
+                    "<span class='campo'>rating</span>": ${objeto.rating},
+                    <br>
+                    "<span class='campo'>stock</span>": ${objeto.stock},
+                    <br>
+                    "<span class='campo'>brand</span>": ${objeto.brand},
+                    <br>
+                    "<span class='campo'>category</span>": ${objeto.category}
+                    <br>
+                    "<span class='campo'>thumbnail</span>": <a href"${objeto.thumbnail}">${objeto.thumbnail}</a>
+                    <br>
+                }
+            <br>`
+            return mensagem;
+        }
+        async function getPostagem(id) {
+            await fetch(`https://dummyjson.com/products/${id}`)
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json);
+                    respjson.innerHTML = imprime(json);
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <main>
+        <h1>Produtos</h1>
+        <input id="numero" type="number" min="1" max="100" value="">
+        <button onclick="getPostagem(numero.value)">Buscar</button>
+
+        <div id="resp">
+            <p class="campo">Resposta:</p>
+            <p id="respjson"></p>
+        </div>
+    </main>
+</body>
+
+</html>
